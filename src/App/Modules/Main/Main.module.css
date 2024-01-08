@@ -1,0 +1,13 @@
+.main{
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: center;
+    padding: 5px 10px;
+}
+.mainBox{
+    display: flex;
+    width: 100%;
+    max-width: 1360px;
+    background: white;
+    flex-direction: row;
+}
