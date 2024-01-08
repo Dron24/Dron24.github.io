@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import bcrypt from 'bcryptjs';
 import stl from './Registration.module.css';
 
 function Registration() {
@@ -10,10 +11,15 @@ function Registration() {
     const [lastName, setLastName] = useState('');
     const [middleName, setMiddleName] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
       event.preventDefault();
-      // Здесь вы можете отправить данные формы на сервер
-      console.log(`First Name: ${firstName}, Last Name: ${lastName}, Middle Name: ${middleName}, Email: ${email}, Phone Number: ${phoneNumber}, Password: ${password}`);
+    
+      // Хэширование пароля
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+    
+      // Здесь вы можете отправить данные формы на сервер, включая хэшированный пароль
+      console.log(`First Name: ${firstName}, Last Name: ${lastName}, Middle Name: ${middleName}, Email: ${email}, Phone Number: ${phoneNumber}, Password: ${hashedPassword}`);
     };
 
     const isSubmitEnabled = email && phoneNumber && password && password === confirmPassword;
