@@ -1,0 +1,18 @@
+.logotype{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.logotype span{
+    display: flex;
+    text-shadow:1px 1px 2px rgba(0,0,0,0.8);
+}
+.logotype span:first-child{
+    font-size: 2em;
+    color:blue;
+    font-weight: bold;
+    font-style: italic;
+}
+.logotype span:last-child{
+    margin-left: -5%;
+    font-size: 1.3em;
+}

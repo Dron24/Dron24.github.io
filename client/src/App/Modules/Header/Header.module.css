@@ -1,0 +1,36 @@
+.header{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex: 0 0 auto;
+    background: rgb(29, 29, 29);
+    color: whitesmoke;
+    padding:5px 10px;
+    box-shadow: 0 5px 5px -5px rgba(0,0,0,.8);
+    border-bottom: .5px solid whitesmoke;
+}
+
+.headerBox{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1360px;
+}
+.item{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+.item:first-child{
+    justify-content: flex-start;
+}
+.item:last-child{
+    justify-content: flex-end;
+}
+
+.btnReg {
+    background: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
