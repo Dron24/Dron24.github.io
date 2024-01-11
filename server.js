@@ -1,11 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Добавьте эту строку
+const cors = require('cors');
 const app = express();
 const { Sequelize, DataTypes } = require('sequelize');
+const argon2 = require('argon2'); // Измените эту строку
+const jwt = require('jsonwebtoken');
 
-app.use(cors()); // И эту строку
+app.use(cors());
 app.use(bodyParser.json());
+
 
 // Подключение к базе данных
 const sequelize = new Sequelize('dron24_24', 'dron24_24', '11111', {
@@ -92,6 +95,8 @@ app.post('/register', async (req, res) => {
       return res.status(400).json({ error: 'A user with this email already exists.' });
     }
 
+    const hashedPassword = await argon2.hash(password); // Измените эту строку
+
     const newUser = await User.create({
       nicName,
       phoneNumber,
@@ -99,7 +104,7 @@ app.post('/register', async (req, res) => {
       firstName,
       lastName,
       middleName,
-      password
+      password: hashedPassword // Сохранение хешированного пароля
     });
 
     res.json({
@@ -108,6 +113,40 @@ app.post('/register', async (req, res) => {
     });
   } catch (error) {
     console.error('Error while registering user: ', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email and password are required.' });
+  }
+
+  try {
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.status(400).json({ error: 'User not found.' });
+    }
+
+    const validPassword = await argon2.verify(user.password, password); // Измените эту строку
+
+    if (!validPassword) {
+      return res.status(400).json({ error: 'Invalid password.' });
+    }
+
+    const token = jwt.sign({ id: user.id }, 'your-secret-key', { expiresIn: '1h' });
+
+    res.json({
+      data: {
+        token
+      },
+      message: 'User successfully logged in.'
+    });
+  } catch (error) {
+    console.error('Error while logging in user: ', error);
     res.status(500).json({ error: error.message });
   }
 });

@@ -1,18 +1,30 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from './../../AuthContext';
 import './HeaderFix.css'
 import st from './Header.module.css';
 import Logo from '../Logo/Logo';
-import Registration from '../Registration/Registration';
+import Registration from '../Auth/Registration/Registration';
+import Login from '../Auth/Login/Login'; // Импортируйте компонент Login
 
 function Header(_props, ref) {
   // eslint-disable-next-line
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
-  const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated, setIsAuthenticated, logout } = useContext(AuthContext);
+  const [isRegOpen, setIsRegOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false); // Добавьте состояние для попапа входа
+  const navigate = useNavigate();
 
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
+  const toggleRegPopup = () => {
+    setIsRegOpen(!isRegOpen);
+  };
+
+  const toggleLoginPopup = () => { // Функция для открытия и закрытия попапа входа
+    setIsLoginOpen(!isLoginOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
   };
 
   return (
@@ -26,12 +38,19 @@ function Header(_props, ref) {
         </div>
         <div className={st.item}>
           {isAuthenticated ? (
-            <Link to="/user" className={st.btnReg}>Профиль</Link> // Если пользователь авторизован, показываем ссылку на профиль
+            <>
+              <Link to="/user" className={st.btnReg}>Профиль</Link>
+              <button onClick={handleLogout} className={st.btnReg}>Выйти</button>
+            </>
           ) : (
             <>
-              <button className={st.btnReg} onClick={togglePopup}>Регистрация</button>
-              {isOpen && (
-                <Registration isOpen={isOpen} togglePopup={togglePopup} />
+              <button className={st.btnReg} onClick={toggleRegPopup}>Регистрация</button>
+              {isRegOpen && (
+                <Registration isOpen={isRegOpen} togglePopup={toggleRegPopup} />
+              )}
+              <button className={st.btnReg} onClick={toggleLoginPopup}>Войти</button> {/* Кнопка входа */}
+              {isLoginOpen && (
+                <Login isOpen={isLoginOpen} togglePopup={toggleLoginPopup} /> // Попап входа
               )}
             </>
           )}

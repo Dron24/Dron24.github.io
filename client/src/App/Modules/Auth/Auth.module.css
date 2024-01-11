@@ -1,0 +1,206 @@
+.AuthBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    padding: 20px;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(22deg, rgba(0, 0, 0, 1) 0%, rgba(29, 29, 29, 1) 50%, rgba(0, 0, 0, 1) 100%);
+}
+
+.AuthForm {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    background: black;
+    margin-top: 40px;
+    border-radius: 8px;
+    min-width: 320px;
+    box-shadow: 0px 0px 14px 0px rgba(245, 20, 20, 0.6);
+    -webkit-box-shadow: 0px 0px 14px 0px rgba(245, 20, 20, 0.6);
+    -moz-box-shadow: 0px 0px 14px 0px rgba(245, 20, 20, 0.6);
+}
+
+.AuthForm input {
+    border: 1px solid rgba(0, 0, 0, 0.342);
+    padding: 8px 12px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    line-height: normal;
+    font-size: 14px;
+}
+
+.AuthForm input:focus {
+    border: 1px solid rgb(255, 0, 0);
+    box-shadow: 0px -1px 4px 1px rgba(0, 0, 0, 1)inset;
+    -webkit-box-shadow: 0px -1px 4px 1px rgba(0, 0, 0, 1)inset;
+    -moz-box-shadow: 0px -1px 4px 1px rgba(0, 0, 0, 1)inset;
+}
+
+.AuthForm button {
+    background: green;
+    color: aliceblue;
+    padding: 15px;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.AuthForm button:disabled {
+    background: rgb(255, 24, 24);
+    color: aliceblue;
+}
+
+.close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background: transparent;
+    width: 50px;
+    height: 50px;
+    color: aliceblue;
+    background: rgba(255, 0, 0, 0.322);
+    border-radius: 100%;
+}
+.close::after {
+    content: "\e5cd";
+    font-family: "Material Icons";
+    font-size: 60px;
+}
+
+
+
+
+
+.circles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.circles li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 0, 0, 0.2);
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+
+}
+
+.circles li:nth-child(1) {
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+    background: rgba(255, 0, 0, 0.651);
+}
+
+
+.circles li:nth-child(2) {
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+    background: rgba(255, 166, 0, 0.733);
+}
+
+.circles li:nth-child(3) {
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+    background: rgba(115, 255, 0, 0.726);
+}
+
+.circles li:nth-child(4) {
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+    background: rgba(30, 0, 138, 0.582);
+}
+
+.circles li:nth-child(5) {
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+    background: rgba(11, 127, 156, 0.637);
+}
+
+.circles li:nth-child(6) {
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+    background: rgba(211, 2, 159, 0.637);
+}
+
+.circles li:nth-child(7) {
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+    background: rgba(255, 16, 16, 0.596);
+}
+
+.circles li:nth-child(8) {
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+    background: rgba(0, 255, 106, 0.603);
+}
+
+.circles li:nth-child(9) {
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+    background: rgba(0, 255, 234, 0.63);
+}
+
+.circles li:nth-child(10) {
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+    background: rgba(200, 255, 0, 0.63);
+}
+
+
+
+@keyframes animate {
+
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+
+}
