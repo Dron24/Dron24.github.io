@@ -170,14 +170,18 @@ app.post('/login', async (req, res) => {
 
 // Код для обслуживания статических файлов из папки build и возврата index.html для любых неизвестных маршрутов
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('build'));
+  // Обслуживаем статические файлы из папки build
+  app.use(express.static(path.join(__dirname, 'client/build')));
 
+  // Для любого GET-запроса, который не совпадает с другими маршрутами,
+  // отправляем обратно index.html из папки build
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
-// Запускаем сервер на порту 3000
-app.listen(3000, () => {
-  console.log('Сервер запущен на порту 3000');
+// Запускаем сервер на порту 3000 или на порту из переменных окружения
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Сервер запущен на порту ${port}`);
 });
